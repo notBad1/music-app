@@ -1,7 +1,7 @@
 {
   "name": "music-app",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "一个音乐播放器",
   "author": "zl",
   "private": true,
   "scripts": {
