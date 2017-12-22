@@ -1,7 +1,7 @@
 <template>
   <div class="recommend">
     <div class="content">
-      <div class="slider-wrapper">
+      <!--<div class="slider-wrapper">-->
         <slider>
           <div v-for="item in recommends.slider" :key="item.id" class="slider-item">
             <a :href="item.linkUrl">
@@ -9,7 +9,7 @@
             </a>
           </div>
         </slider>
-      </div>
+      <!--</div>-->
       <div class="songSheet-wrapper">
         <h1 class="title">热门歌单推荐</h1>
         <ul>

@@ -25,7 +25,7 @@
       },
       interval: { // 循环时间间隔
         type: Number,
-        default: 4000
+        default: 3000
       },
       showDot: { // 是否显示 dot
         type: Boolean,
@@ -187,6 +187,7 @@
     .slider-group
       .slider-item
         box-sizing border-box
+        float left
         display inline-block
         a
           display block
@@ -199,13 +200,13 @@
       position absolute
       left 0
       right 0
-      bottom 8px
+      bottom 5px
       text-align center
       font-size 0
       .dot-item
         display inline-block
-        width 8px
-        height 8px
+        width 6px
+        height 6px
         margin: 0 4px
         border-radius 50%
         background-color $color-text-l
