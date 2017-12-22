@@ -1,11 +1,11 @@
 /**
- * Created by Administrator on 2017/12/20.
+ * 封装jsonp函数
  */
 import otginJSONP from 'jsonp'
 
-export default function jsonp(url, data, option) {
+export default function jsonp (url, data, option) {
   // url拼接
-  url += (url.indexOf("?") < 0 ? '?' : '&') + param(data)
+  url += (url.indexOf('?') < 0 ? '?' : '&') + param(data)
 
   return new Promise((resolve, reject) => {
     // resolve 成功, reject失败
@@ -21,7 +21,7 @@ export default function jsonp(url, data, option) {
 }
 
 // url拼接
-function param(data) {
+function param (data) {
   let url = ''
   for (let i in data) {
     let val = data[i] !== undefined ? data[i] : ''
