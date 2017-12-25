@@ -1,19 +1,19 @@
 <template>
   <div class="recommend">
     <div class="content">
-      <!--<div class="slider-wrapper">-->
+      <div v-if="recommends.length" class="slider-wrapper">
         <slider>
-          <div v-for="item in recommends.slider" :key="item.id" class="slider-item">
+          <div v-for="item in recommends" :key="item.id">
             <a :href="item.linkUrl">
               <img :src="item.picUrl" alt="">
             </a>
           </div>
         </slider>
-      <!--</div>-->
+      </div>
       <div class="songSheet-wrapper">
         <h1 class="title">热门歌单推荐</h1>
         <ul>
-          <li v-for="item in recommends.songList" :key="item.id"></li>
+          <li v-for="item in recommends" :key="item.id"></li>
         </ul>
       </div>
     </div>
@@ -21,7 +21,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {getRecommend} from 'api/recommend';
+  import {getRecommend, getDiscList} from 'api/recommend';
   import {ERR_OK} from 'api/config';
 
   import slider from 'base/slider/slider';
@@ -29,7 +29,8 @@
   export default {
     data () {
       return {
-        recommends: {}
+        recommends: [], // 轮播图数据
+        discList: []  // 热门歌单推荐
       };
     },
     components: {
@@ -39,14 +40,22 @@
       _getRecommend () {
         getRecommend().then((res) => {
           if (res.code === ERR_OK) {
+            this.recommends = res.data.slider;
+          }
+        });
+      },
+      _getDiscList () {
+        getDiscList().then((res) => {
+          if (res.code === ERR_OK) {
             console.log(res.data);
-            this.recommends = res.data;
+            this.discList = res.data.recomPlaylist;
           }
         });
       }
     },
     created () {
       this._getRecommend();
+      this._getDiscList();
     }
   };
 </script>
