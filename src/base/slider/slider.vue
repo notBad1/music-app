@@ -11,7 +11,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import BScroll from 'better-scroll'
+  import BScroll from 'better-scroll';
 
   export default {
     props: {
@@ -36,93 +36,93 @@
       return {
         dots: [],
         currentPageIndex: 0
-      }
+      };
     },
 //   el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子。
     mounted () {
-      this.update()
+      this.update();
       window.addEventListener('resize', () => { //  事件会在窗口或框架被调整大小时发生。
         if (!this.slide || !this.slide.enabled) {
-          return
+          return;
         }
-        clearTimeout(this.resizeTimer)
+        clearTimeout(this.resizeTimer);
         this.resizeTimer = setTimeout(() => {
           if (this.slide.isInTransition) {
-            this._onScrollEnd()
+            this._onScrollEnd();
           } else {
             if (this.autoPlay) {
-              this._play()
+              this._play();
             }
           }
-          this.refresh()
-        }, 60)
-      })
+          this.refresh();
+        }, 60);
+      });
     },
 //    keep-alive 组件激活时调用。
     activated () {
       if (!this.slide) {
-        return
+        return;
       }
-      this.slide.enable()
-      let pageIndex = this.slide.getCurrentPage().pageX
-      this.slide.goToPage(pageIndex, 0, 0)
-      this.currentPageIndex = pageIndex
+      this.slide.enable();
+      let pageIndex = this.slide.getCurrentPage().pageX;
+      this.slide.goToPage(pageIndex, 0, 0);
+      this.currentPageIndex = pageIndex;
       if (this.autoPlay) {
-        this._play()
+        this._play();
       }
     },
 //    keep-alive 组件停用时调用。
     deactivated () {
-      this.slide.disable()
-      clearTimeout(this.timer)
+      this.slide.disable();
+      clearTimeout(this.timer);
     },
 //    实例销毁之前调用。在这一步，实例仍然完全可用。
     beforeDestroy () {
-      this.slide.disable()
-      clearTimeout(this.timer)
+      this.slide.disable();
+      clearTimeout(this.timer);
     },
     methods: {
       update () { // 更新
         if (this.slide) {
-          this.slide.destroy() // 销毁 better-scroll，解绑事件。
+          this.slide.destroy(); // 销毁 better-scroll，解绑事件。
         }
         setTimeout(() => {
-          this.init()
-        }, 100)
+          this.init();
+        }, 100);
       },
       refresh () { // 刷新
-        this._setSlideWidth(true)
-        this.slide.refresh() // 刷新
+        this._setSlideWidth(true);
+        this.slide.refresh(); // 刷新
       },
       next () { // 滚动到下一个页面
-        this.slide.next()
+        this.slide.next();
       },
       init () { // 初始化
-        clearTimeout(this.timer)
-        this.currentPageIndex = 0
-        this._setSlideWidth()
+        clearTimeout(this.timer);
+        this.currentPageIndex = 0;
+        this._setSlideWidth();
         if (this.showDot) {
-          this._initDots()
+          this._initDots();
         }
-        this._initSlide()
+        this._initSlide();
         if (this.autoPlay) {
-          this._play()
+          this._play();
         }
       },
       _setSlideWidth (isResize) {
-        this.children = this.$refs.sliderGroup.childNodes
-        let width = 0
-        let slideWidth = this.$refs.slider.clientWidth
+        this.children = this.$refs.sliderGroup.childNodes;
+        let width = 0;
+        let slideWidth = this.$refs.slider.clientWidth;
         for (let i = 0; i < this.children.length; i++) {
-          let child = this.children[i]
-          child.style.width = slideWidth + 'px'
-          width += slideWidth
+          let child = this.children[i];
+          child.style.width = slideWidth + 'px';
+          width += slideWidth;
         }
         if (this.loop && !isResize) {
-          width += 2 * slideWidth
+          width += 2 * slideWidth;
         }
 
-        this.$refs.sliderGroup.style.width = width + 'px'
+        this.$refs.sliderGroup.style.width = width + 'px';
       },
       _initSlide () {
         this.slide = new BScroll(this.$refs.slider, { // better-scroll实例
@@ -137,45 +137,45 @@
             threshold: 0.3,
             speed: 400
           }
-        })
+        });
         //  滚动结束。 触发事件
-        this.slide.on('scrollEnd', this._onScrollEnd)
+        this.slide.on('scrollEnd', this._onScrollEnd);
         //        鼠标/手指离开 触发事件
         this.slide.on('touchend', () => {
           if (this.autoPlay) {
-            this._play()
+            this._play();
           }
-        })
+        });
         //  滚动开始之前。
         this.slide.on('beforeScrollStart', () => {
           if (this.autoPlay) {
-            clearTimeout(this.timer)
+            clearTimeout(this.timer);
           }
-        })
+        });
       },
 //      滚动结束后事件
       _onScrollEnd () {
-        let pageIndex = this.slide.getCurrentPage().pageX
-        this.currentPageIndex = pageIndex
+        let pageIndex = this.slide.getCurrentPage().pageX;
+        this.currentPageIndex = pageIndex;
         if (this.autoPlay) {
-          this._play()
+          this._play();
         }
       },
 //      初始化Dot
       _initDots () {
         for (let i = 0; i < this.children.length; i++) {
-          this.dots.push(i)
+          this.dots.push(i);
         }
       },
 //      滚动
       _play () {
-        clearTimeout(this.timer)
+        clearTimeout(this.timer);
         this.timer = setTimeout(() => {
-          this.slide.next()
-        }, this.interval)
+          this.slide.next();
+        }, this.interval);
       }
     }
-  }
+  };
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">

@@ -21,16 +21,16 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {getRecommend} from 'api/recommend'
-  import {ERR_OK} from 'api/config'
+  import {getRecommend} from 'api/recommend';
+  import {ERR_OK} from 'api/config';
 
-  import slider from 'base/slider/slider'
+  import slider from 'base/slider/slider';
 
   export default {
     data () {
       return {
         recommends: {}
-      }
+      };
     },
     components: {
       slider
@@ -39,16 +39,16 @@
       _getRecommend () {
         getRecommend().then((res) => {
           if (res.code === ERR_OK) {
-            console.log(res.data)
-            this.recommends = res.data
+            console.log(res.data);
+            this.recommends = res.data;
           }
-        })
+        });
       }
     },
     created () {
-      this._getRecommend()
+      this._getRecommend();
     }
-  }
+  };
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">

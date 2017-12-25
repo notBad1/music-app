@@ -1,31 +1,31 @@
 /**
  * 封装jsonp函数
  */
-import otginJSONP from 'jsonp'
+import otginJSONP from 'jsonp';
 
 export default function jsonp (url, data, option) {
   // url拼接
-  url += (url.indexOf('?') < 0 ? '?' : '&') + param(data)
+  url += (url.indexOf('?') < 0 ? '?' : '&') + param(data);
 
   return new Promise((resolve, reject) => {
     // resolve 成功, reject失败
     otginJSONP(url, option, (err, data) => {
       // err == none 表示成功
       if (!err) {
-        resolve(data)
+        resolve(data);
       } else {
-        reject(err)
+        reject(err);
       }
-    })
-  })
-}
+    });
+  });
+};
 
 // url拼接
 function param (data) {
-  let url = ''
+  let url = '';
   for (let i in data) {
-    let val = data[i] !== undefined ? data[i] : ''
-    url += `&${i} = ${encodeURIComponent(val)}`
+    let val = data[i] !== undefined ? data[i] : '';
+    url += `&${i} = ${encodeURIComponent(val)}`;
   }
-  return url ? url.substring(1) : ''
+  return url ? url.substring(1) : '';
 }
